@@ -4,12 +4,14 @@ const Header = () => {
   return (
     <header className="px-8 py-4 bg-[#fafafe] shadow-sm">
       <nav className="flex justify-between">
-        <Link to="/">
-          <h1 className="text-2xl sm:text-xl font-bold">
-            <span className="text-[#7065f0]">LimbePuli</span>
-            <span className="text-slate-700"> Estate</span>
-          </h1>
-        </Link>
+        <div className="flex justify-center items-center">
+          <Link to="/">
+            <h1 className="text-2xl sm:text-xl font-bold my-auto">
+              <span className="text-[#7065f0]">LimbePuli</span>
+              <span className="text-slate-700"> Estate</span>
+            </h1>
+          </Link>
+        </div>
         <div className="flex gap-16 justify-center items-center">
           <ul className="gap-8 text-[#52586f] font-bold tracking-wide hidden md:flex">
             <Link to="/">
