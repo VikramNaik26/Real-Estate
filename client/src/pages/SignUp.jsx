@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const SignUp = () => {
   return (
     <section className="flex justify-center bg-[#f7f7fd] h-screen">
@@ -139,6 +141,12 @@ const SignUp = () => {
                 Login with Facebook
               </p>
             </div>
+          </div>
+          <div className="flex gap-2 justify-center items-center">
+            <p className="text-sm">Have an account?</p>
+            <Link to={'/sign-in'}>
+              <span className="text-sm text-blue-400">Sign in</span>
+            </Link>
           </div>
         </div>
       </div>
