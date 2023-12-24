@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <header className="px-8 py-4 bg-[#fafafe] shadow-sm">
-      <nav className="flex justify-between">
+    <header className="bg-[#fafafe] shadow-sm relative">
+      <nav className="flex px-10 py-4 justify-between xl:absolute z-10 w-full">
         <div className="flex justify-center items-center">
           <Link to="/">
             <h1 className="text-2xl sm:text-xl font-bold my-auto">

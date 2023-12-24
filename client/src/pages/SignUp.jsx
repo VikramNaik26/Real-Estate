@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 const SignUp = () => {
   return (
     <section className="flex justify-center bg-[#f7f7fd] h-screen">
-      <div className="bg-gradient-to-r from-sky-400 to-indigo-500 hidden xl:block w-[50%] h-screen">
+      <div className="bg-gradient-to-r from-sky-400 to-indigo-500 hidden xl:block w-[50%]">
         <img
           src="https://s3-alpha-sig.figma.com/img/b066/baa1/e8316c663b15db12a89ebae32886491a?Expires=1704067200&Signature=DlyYXyUaHz0wwuR0l2soD6EBg0jNGxKFzUUk~Zpbu4~pbQb5dNBytxMY4SMwmSulR1eXgPiDgrd6mdmPnPfS2mLB5ION3OwTDitwpAdlcG~tHbZEtGJMjt2l1Fx6X2cNFhZ59sBqz05D4387JvZrKs9UQ5sIZkLnBK2dD4gCV5USpDpvuUg01ikKrpUPN1Pcq2UKX3edhupfq4rB~Rqe9jyITyePdxrvsXlYjOGCdaBd8-uNqnXDVFoazgpU4f2TTh~p9IoAh3qKf~ZVl~FAu4ZrQVUBB~b2u4cIA9ObYC7LuE~IKtnYIFpiotDxInOJ9-s1hFTM6y69TBSI3XSrtg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
           alt="Home"
-          className="object-cover opacity-80"
+          className="object-comtain h-full w-full opacity-80"
         />
       </div>
-      <div className="flex flex-col justify-center gap-16 xl:gap-10 items-center xl:w-[50%] p-10">
+      <div className="flex flex-col justify-center gap-16 xl:mt-20 xl:gap-10 items-center xl:w-[50%] p-10">
         <div className="flex flex-col justify-center items-center gap-6">
           <img
             src="https://s3-alpha-sig.figma.com/img/b446/ddcc/016ef88132ccaf1c82456e6489519b68?Expires=1704067200&Signature=AgfSe2xV0B4cLHXkrErpUmIsDmVLH5DPRdKjvBWFjtLB1YCoi3noi-YeluTNGUD9523W3lJ1G0qU6UJV2hMp4Tw1fkEhBeuLkaXw9Ndj8uTxlf2Q4l19XAdCK3tkDFMJILvSlQ0qcjc1-cHPHuHhOccthczcMPVwpFjtBPrubSFzJWH88FDzbeRlZpTM2xsDdwFWzZRY1N7juK16UUdqcJFdKh982~OmdnLmVOMUVhpgTvrNm7KLKfwid7-0aC-8YoDY~dxD1HxQfrylyVS-Ev2TM2nN4xG6YAlyeit7bYQd66hUypNyxa2VTUR0SZHbb-QtBs~JojZJxEhiIzeGXQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
