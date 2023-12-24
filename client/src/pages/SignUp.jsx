@@ -1,6 +1,47 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsLoading(true)
+    // console.log(e.currentTarget)
+    const formData = new FormData(e.currentTarget)
+    // console.log(formData);
+    const newUser = Object.fromEntries(formData)
+    const name = `${newUser.first_name.trim()} ${newUser.last_name.trim()}`
+    newUser.username = name
+    /* delete newUser.first_name
+    delete newUser.last_name
+    delete newUser.confirm_password */
+    const propertiesToDelete = ['first_name', 'last_name', 'confirm_password']
+    for (let prop of propertiesToDelete) {
+      delete newUser[prop]
+    }
+    // console.log(newUser)
+    const res = await fetch('/api/v1/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUser),
+    })
+    const data = await res.json()
+    if (!data.success) {
+      setError(data.message)
+      console.log(error)
+      setIsLoading(false)
+      return
+    }
+    setIsLoading(false)
+    setError(null)
+    navigate('/sign-in')
+  }
+
   return (
     <section className="flex justify-center bg-[#f7f7fd] h-screen">
       <div className="bg-gradient-to-r from-sky-400 to-indigo-500 hidden xl:block w-[50%]">
@@ -27,18 +68,18 @@ const SignUp = () => {
           </p>
         </div>
 
-        <form className="w-[90%] max-w-md mx-auto">
+        <form className="w-[90%] max-w-md mx-auto" onSubmit={handleSubmit}>
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="email"
-              name="floating_email"
-              id="floating_email"
+              name="email"
+              id="email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
             />
             <label
-              htmlFor="floating_email"
+              htmlFor="email"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Email address
@@ -47,14 +88,14 @@ const SignUp = () => {
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="password"
-              name="floating_password"
-              id="floating_password"
+              name="password"
+              id="password"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-nonedark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
             />
             <label
-              htmlFor="floating_password"
+              htmlFor="password"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Password
@@ -63,14 +104,14 @@ const SignUp = () => {
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="password"
-              name="repeat_password"
-              id="floating_repeat_password"
+              name="confirm_password"
+              id="confirm_password"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-nonedark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
             />
             <label
-              htmlFor="floating_repeat_password"
+              htmlFor="confirm_password"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Confirm password
@@ -80,14 +121,14 @@ const SignUp = () => {
             <div className="relative z-0 w-full mb-5 group">
               <input
                 type="text"
-                name="floating_first_name"
-                id="floating_first_name"
+                name="first_name"
+                id="first_name"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-nonedark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required
               />
               <label
-                htmlFor="floating_first_name"
+                htmlFor="first_name"
                 className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >
                 First name
@@ -96,14 +137,14 @@ const SignUp = () => {
             <div className="relative z-0 w-full mb-5 group">
               <input
                 type="text"
-                name="floating_last_name"
-                id="floating_last_name"
+                name="last_name"
+                id="last_name"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-nonedark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required
               />
               <label
-                htmlFor="floating_last_name"
+                htmlFor="last_name"
                 className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >
                 Last name
@@ -114,8 +155,9 @@ const SignUp = () => {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Submit
+            {isLoading ? 'Signing up...' : 'Signup'}
           </button>
+          {error && <p className="mt-6 bg-red-100 p-4 rounded-xl">{error}</p>}
         </form>
         <div className="flex flex-col justify-center items-center gap-6">
           <p className="text-slate-400">--------------- or ---------------</p>
