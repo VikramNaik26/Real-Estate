@@ -1,14 +1,24 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from '../redux/user/userSlice'
 
 const SignIn = () => {
-  const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
+  // const [error, setError] = useState(null)
+  // const [isLoading, setIsLoading] = useState(false)
+  const { loading, error } = useSelector((store) => store.user)
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsLoading(true)
+    // setIsLoading(true)
+    dispatch(signInStart())
     // console.log(e.currentTarget)
     const formData = new FormData(e.currentTarget)
     // console.log(formData);
@@ -24,13 +34,16 @@ const SignIn = () => {
     const data = await res.json()
     // console.log(data);
     if (!data.email) {
-      setError(data.message)
-      // console.log(error)
-      setIsLoading(false)
+      // setError(data.message)
+      // // console.log(error)
+      // setIsLoading(false)
+      // return
+      dispatch(signInFailure(data.message))
       return
     }
-    setIsLoading(false)
-    setError(null)
+    // setIsLoading(false)
+    // setError(null)
+    dispatch(signInSuccess(data))
     navigate('/')
   }
 
@@ -95,7 +108,7 @@ const SignIn = () => {
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            {isLoading ? 'Signing up...' : 'Signup'}
+            {loading ? 'Signing up...' : 'Signup'}
           </button>
           {error && <p className="mt-6 bg-red-100 p-4 rounded-xl">{error}</p>}
         </form>
