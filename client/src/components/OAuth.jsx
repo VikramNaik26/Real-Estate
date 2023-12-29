@@ -14,8 +14,11 @@ const OAuth = () => {
 
       const result = await signInWithPopup(auth, provider)
 
-      //   console.log(result)
-      const res = await fetch('/api/auth/google', {
+      // console.log(result)
+      // console.log(result.user.displayName)
+      // console.log(result.user.email)
+      // console.log(result.user.photoURL)
+      const res = await fetch('/api/v1/auth/google', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -23,10 +26,12 @@ const OAuth = () => {
         body: JSON.stringify({
           name: result.user.displayName,
           email: result.user.email,
-          photo: result.user.photoUrl,
+          photo: result.user.photoURL,
         }),
       })
+
       const data = await res.json()
+      // console.log(data)
       dispatch(signInSuccess(data))
       navigate('/')
     } catch (error) {
