@@ -25,13 +25,15 @@ const Header = () => {
               <li>About us</li>
             </Link>
           </ul>
-          {console.log(user.currentUser)}
+          {/* {console.log(user.currentUser)} */}
           {user.currentUser ? (
-            <img
-              className="hidden w-10 h-10 md:flex"
-              src={user.currentUser.avatar}
-              alt="profile"
-            />
+            <Link to={'/profile'}>
+              <img
+                className="hidden object-cover w-10 h-10 rounded-full md:flex"
+                src={user.currentUser.avatar}
+                alt="profile"
+              />
+            </Link>
           ) : (
             <div className="hidden gap-6 md:flex">
               <Link to="/sign-in">
